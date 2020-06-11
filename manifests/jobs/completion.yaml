@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  hello-turtle
+spec:
+  completions: 2 # expect this job to run twice, this is non parallel it's gonna run sequentially
+  template:
+    metadata:
+      name:  hello-turtle
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["echo", "Hello Turtle..."]
+      restartPolicy: Never

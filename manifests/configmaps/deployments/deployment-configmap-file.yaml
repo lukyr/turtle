@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-configmap-file
+spec:
+  selector:
+    matchLabels:
+      app: hello-world-configmap-file
+  template:
+    metadata:
+      labels:
+        app: hello-world-configmap-file
+    spec:
+      volumes:
+        - name: appconfig
+          configMap:
+              name: appconfigqa
+      containers:
+      - name: hello-world
+        image: gcr.io/google-samples/hello-app:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: appconfig 
+            mountPath: "/etc/appconfig"

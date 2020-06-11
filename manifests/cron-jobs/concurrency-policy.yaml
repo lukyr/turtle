@@ -1,0 +1,20 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name:  hello-turtle-cron
+spec:
+  schedule: "* * * * *" #it's gonna create a job object job resource for every single minute
+  concurrencyPolicy: Allow # Allow is Default, Options: Allow | Forbid | Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+            command: ["echo", "Hello Turtle Cron..."]
+          restartPolicy: Never
+# desc
+# * Allow : running any number job at the same time
+# * Forbid : if the job already running don't shed you'll new jobs so wait for the job to complete
+# * Replace : Replace the existing job, it's going terminate old job.

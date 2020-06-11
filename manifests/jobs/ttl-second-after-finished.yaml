@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  hello-turtle
+spec:
+  ttlSecondsAfterFinished: 20 #it's gonna remove the job after 20s
+  template:
+    metadata:
+      name:  hello-turtle
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["echo", "hello turtle!!!"]
+      restartPolicy: Never
+# ref https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/
+# make sure add " - --feature-gates=TTLAfterFinished=true "
+# on .spec.containers[0].command
+#        - --feature-gates=TTLAfterFinished=true
+# change file /etc/kubernetes/manifests/kube-controller-manager.yaml & /etc/kubernetes/manifests/kube-apiserver.yaml

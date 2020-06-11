@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-cordoning
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-world-cordoning
+  template:
+    metadata:
+      labels:
+        app: hello-world-cordoning
+    spec:
+      containers:
+      - name: hello-world-cordoning
+        image: gcr.io/google-samples/hello-app:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 8080

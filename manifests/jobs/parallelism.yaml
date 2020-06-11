@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  hello-turtle
+spec:
+  completions: 2 # expect this job to run twice
+  parallelism: 2 # expect run parallel
+  template:
+    metadata:
+      name:  hello-turtle
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["echo", "Hello Turtle..."]
+      restartPolicy: Never

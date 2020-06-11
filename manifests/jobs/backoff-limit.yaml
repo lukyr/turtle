@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  hello-turtle
+spec:
+  backoffLimit: 2 # backoff limit 2, expect failed two times
+  template:
+    metadata:
+      name:  hello-turtle
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["ls", "/turtle"] # make error, because directory not existing.
+      restartPolicy: Never

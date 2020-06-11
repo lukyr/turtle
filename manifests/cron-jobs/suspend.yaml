@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name:  hello-turtle-cron
+spec:
+  schedule: "* * * * *" #it's gonna create a job object job resource for every single minute
+  suspend: true # it's gonna suspend/stop the job
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+            command: ["echo", "Hello Turtle Cron..."]
+          restartPolicy: Never
+
+# change the suspend with command line 
+# kubectl patch cronjob hello-turtle-cron -p '{"spec": {"suspend":false}}'

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-private-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world-private-registry
+  template:
+    metadata:
+      labels:
+        app: hello-world-private-registry
+    spec:
+      containers:
+      - name: hello-world
+        image: datahubid/hello-app:ps
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: private-reg-cred

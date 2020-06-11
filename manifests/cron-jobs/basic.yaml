@@ -1,0 +1,15 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name:  hello-turtle-cron
+spec:
+  schedule: "* * * * *" #it's gonna create a job object job resource for every single minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+            command: ["echo", "Hello Turtle Cron..."]
+          restartPolicy: Never
